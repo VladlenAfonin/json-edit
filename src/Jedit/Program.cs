@@ -38,7 +38,7 @@ if (string.IsNullOrWhiteSpace(value))
     Environment.Exit(1);
 }
 
-using (var editor = new JeditProcessor(path))
+using (var editor = new JsonFile(path))
 {
     editor.Set(key, value);
 }

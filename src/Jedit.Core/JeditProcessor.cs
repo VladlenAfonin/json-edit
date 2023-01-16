@@ -3,22 +3,19 @@ using Newtonsoft.Json.Linq;
 
 namespace Jedit.Core;
 
-public class JeditProcessor : IDisposable
+/// <summary>Base JSON processor.</summary>
+public class JeditProcessor
 {
-    private readonly JObject _json;
-    private readonly string _path;
+    private JObject _json;
 
     /// <summary>Initialize new <see cref="JeditProcessor"/>.</summary>
-    /// <param name="path">JSON file path.</param>
+    /// <param name="json">JSON content.</param>
     /// <exception cref="InvalidOperationException">
     /// Unable to open JSON.
     /// </exception>
-    public JeditProcessor(string path)
+    protected void Initialize(string json)
     {
-        var jsonText = File.ReadAllText(path);
-
-        _path = path;
-        _json = JsonConvert.DeserializeObject(jsonText) as JObject;
+        _json = JsonConvert.DeserializeObject(json) as JObject;
 
         if (_json is null)
         {
@@ -26,7 +23,7 @@ public class JeditProcessor : IDisposable
         }
     }
 
-    /// <summary>Set value to a given key.</summary>
+    /// <summary>Set key to a given value.</summary>
     /// <param name="key">
     /// Json key in form "Section1.Section2.SomeKey". Delimiter can be chosen.
     /// </param>
@@ -58,9 +55,10 @@ public class JeditProcessor : IDisposable
         token.Replace(JToken.FromObject(value));
     }
 
-    /// <inheritdoc/>
-    public void Dispose()
+    /// <summary>Get current JSON as string.</summary>
+    /// <returns>Current JSON as string.</returns>
+    public string Get()
     {
-        File.WriteAllText(_path, _json.ToString());
+        return _json.ToString();
     }
 }
