@@ -6,7 +6,7 @@ namespace Jedit.Core;
 /// <summary>Base JSON processor.</summary>
 public class JeditProcessor
 {
-    private JObject _json;
+    private JObject? _json;
 
     /// <summary>Initialize new <see cref="JeditProcessor"/>.</summary>
     /// <param name="json">JSON content.</param>
