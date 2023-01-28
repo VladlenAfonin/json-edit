@@ -41,14 +41,12 @@ public class JsonEditorBase
     }
 
     /// <summary>Set key to a given value.</summary>
-    /// <param name="key">
-    /// Json key in form "Section1.Section2.SomeKey". Delimiter can be chosen.
-    /// </param>
+    /// <param name="key">Json key in form "Section1.Section2.SomeKey".</param>
     /// <param name="value">New value.</param>
     /// <exception cref="InvalidOperationException">
     /// Value already exists for some intermediate section key.
     /// </exception>
-    public void Set(string key, object value)
+    public void Set<T>(string key, T value)
     {
         var token = EnsureCreatedAndGet(key);
 
